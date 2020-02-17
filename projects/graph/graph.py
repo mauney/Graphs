@@ -94,30 +94,28 @@ class Graph:
         starting_vertex to destination_vertex in
         breath-first order.
         """
-        pass  # TODO
         # Create an empty queue
-        q = queue()
+        q = Queue()
             # Add A PATH TO vertex_id to the queue
-            q.enqueue([starting_vertex])
-            # Create an empty set to store visited nodes
-            visited = set()
-            # While the queue is not empty...
-            while q.size() > 0:
-                # Dequeue, the first PATH
-                path = q.dequeue()
-                # GRAB THE LAST VERTEX FROM THE PATH
-                v = path[-1]
-                # IF VERTEX IS TARGET, RETURN THE PATH
-                if v == destination_vertex:
-                    return path
-                # If it has not been visited...
-                if v not in visited:
-                    # Mark it as visited
-                    visited.add(v)
-                    # Then add A PATH TO all neighbors to the back of the queue
-                    for n in self.get_neighbors(v):
-                        q.enqueue(path + [n])
-                    # (make a copy of the path before adding)
+        q.enqueue([starting_vertex])
+        # Create an empty set to store visited nodes
+        visited = set()
+        # While the queue is not empty...
+        while q.size() > 0:
+            # Dequeue the first PATH
+            path = q.dequeue()
+            # GRAB THE LAST VERTEX FROM THE PATH
+            v = path[-1]
+            # IF VERTEX IS TARGET, RETURN THE PATH
+            if v == destination_vertex:
+                return path
+            # If it has not been visited...
+            if v not in visited:
+                # Mark it as visited
+                visited.add(v)
+                # Then add A PATH TO all neighbors to the back of the queue
+                for n in self.get_neighbors(v):
+                    q.enqueue(path + [n])
 
                         
 
@@ -127,7 +125,28 @@ class Graph:
         starting_vertex to destination_vertex in
         depth-first order.
         """
-        pass  # TODO
+        # Create an empty stack
+        s = Stack()
+            # Add A PATH TO vertex_id to the stack
+        s.push([starting_vertex])
+        # Create an empty set to store visited nodes
+        visited = set()
+        # While the stack is not empty...
+        while s.size() > 0:
+            # pop the first PATH
+            path = s.pop()
+            # GRAB THE LAST VERTEX FROM THE PATH
+            v = path[-1]
+            # IF VERTEX IS TARGET, RETURN THE PATH
+            if v == destination_vertex:
+                return path
+            # If it has not been visited...
+            if v not in visited:
+                # Mark it as visited
+                visited.add(v)
+                # Then add A PATH TO all neighbors to the back of the stack
+                for n in self.get_neighbors(v):
+                    s.push(path + [n])
 
     def dfs_recursive(self, starting_vertex, destination_vertex):
         """
@@ -197,12 +216,12 @@ if __name__ == '__main__':
     Valid BFS path:
         [1, 2, 4, 6]
     '''
-    # print(graph.bfs(1, 6))
+    print(graph.bfs(1, 6))
 
     '''
     Valid DFS paths:
         [1, 2, 4, 6]
         [1, 2, 4, 7, 6]
     '''
-    # print(graph.dfs(1, 6))
+    print(graph.dfs(1, 6))
     # print(graph.dfs_recursive(1, 6))
