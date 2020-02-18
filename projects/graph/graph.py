@@ -79,20 +79,23 @@ class Graph:
                 for neighbor in self.get_neighbors(v):
                     s.push(neighbor)
 
-    def dft_recursive(self, starting_vertex, visited=set()):
+    def dft_recursive(self, starting_vertex, visited=None):
         """
         Print each vertex in depth-first order
         beginning from starting_vertex.
 
         This should be done using recursion.
         """
+        if visited is None:
+            visited = set()
+
         print(starting_vertex)
         visited.add(starting_vertex)
         neighbors = self.get_neighbors(starting_vertex)
         
         for n in neighbors:
             if n not in visited:
-                self.dft_recursive(n)
+                self.dft_recursive(n, visited)
 
     def bfs(self, starting_vertex, destination_vertex):
         """
@@ -154,7 +157,7 @@ class Graph:
                 for n in self.get_neighbors(v):
                     s.push(path + [n])
 
-    def dfs_recursive(self, starting_vertex, destination_vertex, visited=set()):
+    def dfs_recursive(self, starting_vertex, destination_vertex, visited=None):
         """
         Return a list containing a path from
         starting_vertex to destination_vertex in
@@ -162,6 +165,8 @@ class Graph:
 
         This should be done using recursion.
         """
+        if visited is None:
+            visited = set()
 
         if starting_vertex == destination_vertex:
             return [destination_vertex]
@@ -169,7 +174,7 @@ class Graph:
         if starting_vertex not in visited: 
             visited.add(starting_vertex)
             for neighbor in self.get_neighbors(starting_vertex):
-                path = self.dfs_recursive(neighbor, destination_vertex)
+                path = self.dfs_recursive(neighbor, destination_vertex, visited)
                 if path:
                     return [starting_vertex] + path
 
@@ -247,3 +252,29 @@ if __name__ == '__main__':
     print(graph.dfs_recursive(1, 6))
     print("no path")
     print(graph.dfs_recursive(1, 8))
+
+
+    graph2 = Graph()  # Instantiate your graph2
+    # https://github.com/LambdaSchool/graph2s/blob/master/objectives/breadth-first-search/img/bfs-visit-order.png
+    graph2.add_vertex(9)
+    graph2.add_vertex(2)
+    graph2.add_vertex(3)
+    graph2.add_vertex(4)
+    graph2.add_vertex(5)
+    graph2.add_vertex(6)
+    graph2.add_vertex(7)
+    graph2.add_edge(5, 3)
+    graph2.add_edge(6, 3)
+    graph2.add_edge(7, 9)
+    graph2.add_edge(4, 7)
+    graph2.add_edge(9, 2)
+    graph2.add_edge(7, 6)
+    graph2.add_edge(2, 4)
+    graph2.add_edge(3, 5)
+    graph2.add_edge(2, 3)
+    graph2.add_edge(4, 6)
+
+    print('Graph2')
+    graph2.dft_recursive(9)
+    print('Graph1')
+    graph.dft_recursive(1)
