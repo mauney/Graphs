@@ -1,4 +1,3 @@
-
 def get_parents(ancestors, node):
     parents = []
     for pair in ancestors:
