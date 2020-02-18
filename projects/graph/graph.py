@@ -91,9 +91,8 @@ class Graph:
 
         print(starting_vertex)
         visited.add(starting_vertex)
-        neighbors = self.get_neighbors(starting_vertex)
         
-        for n in neighbors:
+        for n in self.get_neighbors(starting_vertex):
             if n not in visited:
                 self.dft_recursive(n, visited)
 
@@ -212,7 +211,7 @@ if __name__ == '__main__':
     Valid BFT paths:
         1, 2, 3, 4, 5, 6, 7
         1, 2, 3, 4, 5, 7, 6
-        1, 2, 3, 4, 6, 7, 5
+        1, 2, 3, 4, 6, An act of a function calling itself. Recursion is used to solve problems that contain smaller sub-problems. A recursive function can receive two inputs: a base case (ends recursion) or a recursive cas7, 5
         1, 2, 3, 4, 6, 5, 7
         1, 2, 3, 4, 7, 6, 5
         1, 2, 3, 4, 7, 5, 6
@@ -223,6 +222,7 @@ if __name__ == '__main__':
         1, 2, 4, 3, 7, 6, 5
         1, 2, 4, 3, 7, 5, 6
     '''
+    print('BFT')
     graph.bft(1)
 
     '''
@@ -232,6 +232,7 @@ if __name__ == '__main__':
         1, 2, 4, 7, 6, 3, 5
         1, 2, 4, 6, 3, 5, 7
     '''
+    print('DFT')
     graph.dft(1)
     print('Recursion!')
     graph.dft_recursive(1)
@@ -240,6 +241,7 @@ if __name__ == '__main__':
     Valid BFS path:
         [1, 2, 4, 6]
     '''
+    print('BFS')
     print(graph.bfs(1, 6))
 
     '''
@@ -247,34 +249,16 @@ if __name__ == '__main__':
         [1, 2, 4, 6]
         [1, 2, 4, 7, 6]
     '''
+    print('DFS')
     print(graph.dfs(1, 6))
-    print("Recusrsive search!")
+    print("Recursive search!")
     print(graph.dfs_recursive(1, 6))
     print("no path")
     print(graph.dfs_recursive(1, 8))
-
-
-    graph2 = Graph()  # Instantiate your graph2
-    # https://github.com/LambdaSchool/graph2s/blob/master/objectives/breadth-first-search/img/bfs-visit-order.png
-    graph2.add_vertex(9)
-    graph2.add_vertex(2)
-    graph2.add_vertex(3)
-    graph2.add_vertex(4)
-    graph2.add_vertex(5)
-    graph2.add_vertex(6)
-    graph2.add_vertex(7)
-    graph2.add_edge(5, 3)
-    graph2.add_edge(6, 3)
-    graph2.add_edge(7, 9)
-    graph2.add_edge(4, 7)
-    graph2.add_edge(9, 2)
-    graph2.add_edge(7, 6)
-    graph2.add_edge(2, 4)
-    graph2.add_edge(3, 5)
-    graph2.add_edge(2, 3)
-    graph2.add_edge(4, 6)
-
-    print('Graph2')
-    graph2.dft_recursive(9)
-    print('Graph1')
-    graph.dft_recursive(1)
+    print('more dfs recursion')
+    print(graph.dfs_recursive(1, 2))
+    print(graph.dfs_recursive(1, 3))
+    print(graph.dfs_recursive(1, 4))
+    print(graph.dfs_recursive(1, 5))
+    print(graph.dfs_recursive(1, 6))
+    print(graph.dfs_recursive(1, 7))
