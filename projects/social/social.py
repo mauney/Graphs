@@ -1,12 +1,17 @@
+import random
+
 class User:
     def __init__(self, name):
         self.name = name
+    def __repr__(self):
+        return self.name
 
 class SocialGraph:
     def __init__(self):
         self.last_id = 0
         self.users = {}
         self.friendships = {}
+        self.counter = 0
 
     def add_friendship(self, user_id, friend_id):
         """
@@ -45,8 +50,24 @@ class SocialGraph:
         # !!!! IMPLEMENT ME
 
         # Add users
+        for i in range(num_users):
+            self.add_user(f'User {i+1}')
 
         # Create friendships
+        # Create a list with all possible friendships
+        possible_friendships = []
+        for user_id in self.users:
+            for other_id in range(user_id +1, self.last_id + 1):
+                possible_friendships.append((user_id, other_id))
+
+        # Shuffle the list
+        random.shuffle(possible_friendships)
+        # Grab the first N pairs for the list and create those friendships
+        for i in range(num_users * avg_friendships // 2):
+            friendship = possible_friendships[i]
+            self.add_friendship(friendship[0], friendship[1])
+
+        print(f'counter: {self.counter}')
 
     def get_all_social_paths(self, user_id):
         """
@@ -59,12 +80,27 @@ class SocialGraph:
         """
         visited = {}  # Note that this is a dictionary, not a set
         # !!!! IMPLEMENT ME
+        # BFS starting at user_id, return first path to every reachable person
+        q = [[user_id]]
+        while q:
+            path = q.pop(0)
+            person = path[-1]
+            # add the person and the path to the person
+            for friend in self.friendships[person]:
+                if friend not in visited and friend != user_id:
+                    q.append(path + [friend])
+                    visited[friend] = path + [friend]
+
         return visited
 
 
 if __name__ == '__main__':
     sg = SocialGraph()
     sg.populate_graph(10, 2)
-    print(sg.friendships)
+    # print(sg.users)
+    # print(sg.friendships)
     connections = sg.get_all_social_paths(1)
     print(connections)
+
+    sg2 = SocialGraph()
+    sg2.populate_graph(100, 10)
