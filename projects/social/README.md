@@ -64,3 +64,5 @@ I think 98% coverage is about right for large networks. The likelyhood of an iso
 
 2. If you followed the hints for part 1, your `populate_graph()` will run in O(n^2) time. Refactor your code to run in O(n) time. Are there any tradeoffs that come with this implementation?
 
+My implementation requires checking a list for a value, so maybe it is still O(n^2), but that is very worst case and not likely.
+

@@ -53,18 +53,15 @@ class SocialGraph:
             self.add_user(f'User {i+1}')
 
         # Create friendships
-        # Create a list with all possible friendships
-        possible_friendships = []
-        for user_id in self.users:
-            for other_id in range(user_id +1, self.last_id + 1):
-                possible_friendships.append((user_id, other_id))
-
-        # Shuffle the list
-        random.shuffle(possible_friendships)
-        # Grab the first N pairs for the list and create those friendships
-        for i in range(num_users * avg_friendships // 2):
-            friendship = possible_friendships[i]
-            self.add_friendship(friendship[0], friendship[1])
+        # for N friendships
+        N = num_users * avg_friendships // 2
+        while N > 0:
+            # pick a couple of people at random
+            pair = random.sample(range(1, self.last_id + 1), 2)
+            # if they are not friends, make it so and deccrement
+            if pair[1] not in self.friendships[pair[0]]:
+                N -= 1
+                self.add_friendship(pair[0], pair[1])
 
     def get_all_social_paths(self, user_id):
         """
@@ -94,10 +91,10 @@ class SocialGraph:
 if __name__ == '__main__':
     sg = SocialGraph()
     sg.populate_graph(10, 2)
-    # print(sg.users)
-    # print(sg.friendships)
-    # connections = sg.get_all_social_paths(1)
-    # print(connections)
+    print(sg.users)
+    print(sg.friendships)
+    connections = sg.get_all_social_paths(1)
+    print(connections)
 
     sg2 = SocialGraph()
     num_users = 1000
