@@ -52,13 +52,13 @@ class World:
             if all_null:
                 continue
             # PRINT NORTH CONNECTION ROW
-            str += "#"
-            for room in row:
-                if room is not None and room.n_to is not None:
-                    str += "  |  "
-                else:
-                    str += "     "
-            str += "#\n"
+            # str += "#"
+            # for room in row:
+            #     if room is not None and room.n_to is not None:
+            #         str += "  |  "
+            #     else:
+            #         str += "     "
+            # str += "#\n"
             # PRINT ROOM ROW
             str += "#"
             for room in row:

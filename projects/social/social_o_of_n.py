@@ -58,7 +58,7 @@ class SocialGraph:
         while N > 0:
             # pick a couple of people at random
             pair = random.sample(range(1, self.last_id + 1), 2)
-            # if they are not friends, make it so and deccrement
+            # if they are not friends, make it so and decrement N
             if pair[1] not in self.friendships[pair[0]]:
                 N -= 1
                 self.add_friendship(pair[0], pair[1])
