@@ -11,7 +11,6 @@ class SocialGraph:
         self.last_id = 0
         self.users = {}
         self.friendships = {}
-        self.counter = 0
 
     def add_friendship(self, user_id, friend_id):
         """
@@ -67,8 +66,6 @@ class SocialGraph:
             friendship = possible_friendships[i]
             self.add_friendship(friendship[0], friendship[1])
 
-        print(f'counter: {self.counter}')
-
     def get_all_social_paths(self, user_id):
         """
         Takes a user's user_id as an argument
@@ -99,8 +96,31 @@ if __name__ == '__main__':
     sg.populate_graph(10, 2)
     # print(sg.users)
     # print(sg.friendships)
-    connections = sg.get_all_social_paths(1)
-    print(connections)
+    # connections = sg.get_all_social_paths(1)
+    # print(connections)
 
     sg2 = SocialGraph()
-    sg2.populate_graph(100, 10)
+    num_users = 1000
+    avg_friends = 5
+    sg2.populate_graph(num_users, avg_friends)
+    avg_portion_connections = 0
+
+    count_connections = 0
+    count_connection_degrees = 0
+
+    for i in range(1, num_users + 1):
+        connections = sg2.get_all_social_paths(i)
+        avg_portion_connections += len(connections) / num_users
+        for connection in connections.values():
+            count_connections += 1
+            count_connection_degrees += len(connection) - 1
+    
+    percent = 100 * avg_portion_connections / num_users
+    print(f'percentage of other users in network: {percent:.2f}%')
+
+    print(f'count_connections: {count_connections}')
+    print(f'count_connection_degrees: {count_connection_degrees}')
+    avg_degrees = count_connection_degrees / count_connections
+    print(f'avg_dgrees {avg_degrees}')
+
+    
